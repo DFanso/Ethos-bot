@@ -6,6 +6,7 @@ on:
       - dev
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
 
@@ -32,9 +33,9 @@ jobs:
         "OPENAI_API_KEY": "${{ secrets.OPENAI_API_KEY }}"
         }
         EOF
-            else
-            echo "Config file already exists."
-            fi
+        else
+          echo "Config file already exists."
+        fi
 
     - name: Build the application
       run: yarn build
@@ -48,6 +49,11 @@ jobs:
     - name: Push Docker image to Docker Hub
       run: docker push dfanso/ethos-bot:latest
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Install sshpass
       run: sudo apt-get install sshpass
 
