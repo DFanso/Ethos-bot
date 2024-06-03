@@ -17,7 +17,7 @@ always make sure to align with the context
 Answer:`;
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4o',
     messages: [{ role: 'user', content: prompt }],
     max_tokens: 250,
   });
