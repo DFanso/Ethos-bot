@@ -40,13 +40,13 @@ jobs:
       run: yarn build
 
     - name: Build Docker image
-      run: docker build . -t ethos-bot:latest
+      run: docker build . -t dfanso/ethos-bot:latest
 
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
     - name: Push Docker image to Docker Hub
-      run: docker push ethos-bot:latest
+      run: docker push dfanso/ethos-bot:latest
 
     - name: Install sshpass
       run: sudo apt-get install sshpass
@@ -55,4 +55,4 @@ jobs:
       env:
         VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
       run: |
-        sshpass -p $VPS_PASSWORD ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} 'docker pull ethos-bot:latest && docker stop ethos-bot || true && docker rm ethos-bot || true && docker run -d --name ethos-bot -p 80:3000 ethos-bot:latest'
+        sshpass -p $VPS_PASSWORD ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} 'docker pull dfanso/ethos-bot:latest && docker stop dfanso/ethos-bot || true && docker rm dfanso/ethos-bot || true && docker run -d --name dfanso/ethos-bot -p 80:3000 dfanso/ethos-bot:latest'
