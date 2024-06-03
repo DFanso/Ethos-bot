@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'
+        node-version: '20'
 
     - name: Install dependencies
       run: yarn install
@@ -26,9 +26,9 @@ jobs:
         if [ ! -f src/config.json ]; then
           cat <<EOF > src/config.json
           {
-            "token": "${{ secrets.TOKEN }}",
-            "clientId": "${{ secrets.CLIENT_ID }}",
-            "channelId": "${{ secrets.CHANNEL_ID }}",
+            "TOKEN": "${{ secrets.TOKEN }}",
+            "CLIENT_ID": "${{ secrets.CLIENT_ID }}",
+            "CHANNEL_ID": "${{ secrets.CHANNEL_ID }}",
             "OPENAI_API_KEY": "${{ secrets.OPENAI_API_KEY }}"
           }
           EOF
