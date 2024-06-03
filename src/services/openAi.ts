@@ -7,22 +7,23 @@ const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
 });
 
-export async function generateOpenAIResponse(question: string, topic: string ,description: string): Promise<string> {
-  
-  const prompt = `Use the following context about this topics "${topic}", provide a detailed response to the question:
+export async function generateOpenAIResponse(question: string, topic: string, description: string): Promise<string> {
+  const prompt = `You are an expert in real estate. Use the following context about the topic "${topic}" to provide a detailed and structured response to the question:
 
-Context: "${description}" , 
+Context: "${description}"
 
 Question: "${question}"
-always make sure to align with the context
+
+Always make sure to align with the context. Format the response with bold headings for the main points.
+And Also Use Emojis for Necessary areas. 
+
 Answer:`;
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
+    model: 'gpt-4',
     messages: [{ role: 'user', content: prompt }],
     max_tokens: 1000,
   });
-
 
   const choice = response.choices?.[0];
   const messageContent = choice?.message?.content;

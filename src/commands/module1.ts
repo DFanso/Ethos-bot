@@ -1,5 +1,5 @@
 import { CommandInteraction, SlashCommandBuilder, EmbedBuilder } from 'discord.js';
-import { generateOpenAIResponse } from '../services/openAi'; 
+import { generateOpenAIResponse } from '../services/openAi';
 
 const module1Info: { [key: string]: string } = {
   "wholesale real estate": "Wholesale real estate is a way to buy and sell real estate contracts. Wholesalers act as intermediaries between sellers and buyers, who are usually investors. A wholesaler will usually contact owners of distressed properties and convince them to open a wholesale contract.",
@@ -83,8 +83,7 @@ module.exports = {
     if (userQuestion) {
       const openAIResponse = await generateOpenAIResponse(userQuestion, topic, response);
       
-      //const fullResponse = `${response}\n\n${openAIResponse}`;
-      const fullResponse = `${openAIResponse}`;
+      const fullResponse = `**Question:** ${userQuestion}\n\n**Answer:** ${openAIResponse}\n\n**Are you ready for module one quiz?**`;
       
       const embed = new EmbedBuilder()
         .setColor('#0099ff')
