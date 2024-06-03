@@ -55,4 +55,8 @@ jobs:
       env:
         VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
       run: |
-        sshpass -p $VPS_PASSWORD ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} 'docker pull dfanso/ethos-bot:latest && docker stop dfanso/ethos-bot || true && docker rm dfanso/ethos-bot || true && docker run -d --name dfanso/ethos-bot -p 80:3000 dfanso/ethos-bot:latest'
+        sshpass -p $VPS_PASSWORD ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} '
+          docker pull dfanso/ethos-bot:latest &&
+          docker stop ethos-bot || true &&
+          docker rm ethos-bot || true &&
+          docker run -d --name ethos-bot -p 80:3000 dfanso/ethos-bot:latest'
