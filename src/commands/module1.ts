@@ -76,23 +76,24 @@ module.exports = {
     const topic = interaction.options.get('topic')?.value as string;
     const userQuestion = interaction.options.get('question')?.value as string | undefined;
 
-    await interaction.deferReply(); // Acknowledge the interaction immediately
+    await interaction.deferReply(); 
 
     let response = module1Info[topic.toLowerCase()] || 'Topic not found.';
 
     if (userQuestion) {
       const openAIResponse = await generateOpenAIResponse(userQuestion, topic, response);
-      `${openAIResponse}`;
+      
+      const fullResponse = `${response}\n\n${openAIResponse}`;
+      
+      const embed = new EmbedBuilder()
+        .setColor('#0099ff')
+        .setTitle(`Information on ${topic}`)
+        .setDescription(fullResponse)
+        .setTimestamp()
+        .setAuthor({ name: `${interaction.user.displayName}`, iconURL: `${interaction.user.displayAvatarURL()}`, url: `${interaction.user.displayAvatarURL()}` })
+        .setFooter({ text: `${interaction.guild?.name}`, iconURL: `${interaction.guild?.iconURL()}` });
+    
+      await interaction.editReply({ embeds: [embed] });
     }
-
-    const embed = new EmbedBuilder()
-      .setColor('#0099ff')
-      .setTitle(`Information on ${topic}`)
-      .setDescription(response)
-      .setTimestamp()
-      .setAuthor({ name: `${interaction.user.displayName}`, iconURL: `${interaction.user.displayAvatarURL()}`, url: `${interaction.user.displayAvatarURL()}` })
-      .setFooter({ text: `${interaction.guild?.name}`, iconURL: `${interaction.guild?.iconURL()}` });
-
-    await interaction.editReply({ embeds: [embed] }); 
-  },
+  }    
 };

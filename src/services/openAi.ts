@@ -8,6 +8,7 @@ const openai = new OpenAI({
 });
 
 export async function generateOpenAIResponse(question: string, topic: string ,description: string): Promise<string> {
+  
   const prompt = `Use the following context about this topics "${topic}", provide a detailed response to the question:
 
 Context: "${description}" , 
@@ -19,8 +20,9 @@ Answer:`;
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
     messages: [{ role: 'user', content: prompt }],
-    max_tokens: 250,
+    max_tokens: 1000,
   });
+
 
   const choice = response.choices?.[0];
   const messageContent = choice?.message?.content;
