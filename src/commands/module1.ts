@@ -1,5 +1,5 @@
 import { CommandInteraction, SlashCommandBuilder, EmbedBuilder } from 'discord.js';
-import { generateOpenAIResponse } from '../services/openAi'; // Import the updated service
+import { generateOpenAIResponse } from '../services/openAi'; 
 
 const module1Info: { [key: string]: string } = {
   "wholesale real estate": "Wholesale real estate is a way to buy and sell real estate contracts. Wholesalers act as intermediaries between sellers and buyers, who are usually investors. A wholesaler will usually contact owners of distressed properties and convince them to open a wholesale contract.",
@@ -71,7 +71,7 @@ module.exports = {
     .addStringOption(option => 
       option.setName('question')
         .setDescription('Ask a specific question related to the topic')
-        .setRequired(false)),
+        .setRequired(true)),
   async execute(interaction: CommandInteraction) {
     const topic = interaction.options.get('topic')?.value as string;
     const userQuestion = interaction.options.get('question')?.value as string | undefined;
@@ -81,16 +81,17 @@ module.exports = {
     let response = module1Info[topic.toLowerCase()] || 'Topic not found.';
 
     if (userQuestion) {
-      const openAIResponse = await generateOpenAIResponse(userQuestion, topic);
-      response += `\n\nAdditional Information:\n\n${openAIResponse}`;
+      const openAIResponse = await generateOpenAIResponse(userQuestion, topic, response);
+      `${openAIResponse}`;
     }
 
     const embed = new EmbedBuilder()
       .setColor('#0099ff')
       .setTitle(`Information on ${topic}`)
       .setDescription(response)
-      .setTimestamp();
-      
+      .setTimestamp()
+      .setAuthor({ name: `${interaction.user.displayName}`, iconURL: `${interaction.user.displayAvatarURL()}`, url: `${interaction.user.displayAvatarURL()}` })
+      .setFooter({ text: `${interaction.guild?.name}`, iconURL: `${interaction.guild?.iconURL()}` });
 
     await interaction.editReply({ embeds: [embed] }); 
   },

@@ -7,13 +7,13 @@ const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
 });
 
-export async function generateOpenAIResponse(question: string, topic: string): Promise<string> {
-  const prompt = `Given the following context about ${topic}, provide a detailed response to the question:
+export async function generateOpenAIResponse(question: string, topic: string ,description: string): Promise<string> {
+  const prompt = `Use the following context about this topics "${topic}", provide a detailed response to the question:
 
-Context: ${question}
+Context: "${description}" , 
 
-Question: ${question}
-
+Question: "${question}"
+always make sure to align with the context
 Answer:`;
 
   const response = await openai.chat.completions.create({
