@@ -83,7 +83,8 @@ module.exports = {
     if (userQuestion) {
       const openAIResponse = await generateOpenAIResponse(userQuestion, topic, response);
       
-      const fullResponse = `${response}\n\n${openAIResponse}`;
+      //const fullResponse = `${response}\n\n${openAIResponse}`;
+      const fullResponse = `${openAIResponse}`;
       
       const embed = new EmbedBuilder()
         .setColor('#0099ff')
