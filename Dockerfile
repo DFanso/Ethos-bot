@@ -19,7 +19,7 @@ RUN yarn build
 RUN yarn deploy
 
 # Use the dist directory for the application
-WORKDIR /usr/src/app/dist
+WORKDIR /usr/src/app
 
 # Command to run the application.
-CMD [ "node", "index.js" ]
+CMD [ "yarn", "dev" ]
