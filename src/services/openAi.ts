@@ -19,7 +19,7 @@ Answer:`;
   const response = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
     messages: [{ role: 'user', content: prompt }],
-    max_tokens: 150,
+    max_tokens: 250,
   });
 
   const choice = response.choices?.[0];
