@@ -1,0 +1,58 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Ensure config file exists and populate with secrets
+      run: |
+        if [ ! -f src/config.json ]; then
+          cat <<EOF > src/config.json
+          {
+            "token": "${{ secrets.TOKEN }}",
+            "clientId": "${{ secrets.CLIENT_ID }}",
+            "channelId": "${{ secrets.CHANNEL_ID }}",
+            "OPENAI_API_KEY": "${{ secrets.OPENAI_API_KEY }}"
+          }
+          EOF
+        else
+          echo "Config file already exists."
+        fi
+
+    - name: Build the application
+      run: yarn build
+
+    - name: Build Docker image
+      run: docker build . -t ethos-bot:latest
+
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Push Docker image to Docker Hub
+      run: docker push ethos-bot:latest
+
+    - name: Install sshpass
+      run: sudo apt-get install sshpass
+
+    - name: Deploy to VPS
+      env:
+        VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+      run: |
+        sshpass -p $VPS_PASSWORD ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} 'docker pull ethos-bot:latest && docker stop ethos-bot || true && docker rm ethos-bot || true && docker run -d --name ethos-bot -p 80:3000 ethos-bot:latest'

@@ -9,7 +9,7 @@ import { readdirSync } from 'fs';
 import { join } from 'path';
 import config from '../config.json';
 
-const ALLOWED_CHANNEL_ID = config.channelId;
+const ALLOWED_CHANNEL_ID = config.CHANNEL_ID;
 
 
 module.exports = {

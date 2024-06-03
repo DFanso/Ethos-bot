@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import config from './config.json';
 
-const { token } = config;
+const { TOKEN } = config;
 
 const client = new Client({
   intents: [
@@ -28,4 +28,4 @@ for (const file of eventFiles) {
   client.on(event.name, (...args) => event.execute(...args, client));
 }
 
-client.login(token);
+client.login(TOKEN);
