@@ -1,5 +1,8 @@
 import { CommandInteraction, SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import { generateOpenAIResponse } from '../services/openAi';
+import config from '../config.json';
+
+const MODULE_1_CHANNEL_ID = config.MODULE_1_CHANNEL_ID;
 
 const module1Info: { [key: string]: string } = {
   "wholesale real estate": "Wholesale real estate is a way to buy and sell real estate contracts. Wholesalers act as intermediaries between sellers and buyers, who are usually investors. A wholesaler will usually contact owners of distressed properties and convince them to open a wholesale contract.",
@@ -73,6 +76,15 @@ module.exports = {
         .setDescription('Ask a specific question related to the topic')
         .setRequired(true)),
   async execute(interaction: CommandInteraction) {
+
+    if (interaction.channelId !== MODULE_1_CHANNEL_ID) {
+      await (interaction as CommandInteraction).reply({
+        content: `Can\'t use this command in this Channel!, Use this Channel: <#${MODULE_1_CHANNEL_ID}>`,
+        ephemeral: true
+      });
+      return;
+    }
+
     const topic = interaction.options.get('topic')?.value as string;
     const userQuestion = interaction.options.get('question')?.value as string | undefined;
 

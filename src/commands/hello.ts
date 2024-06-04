@@ -11,7 +11,7 @@ module.exports = {
 
 Here are the steps to get started:
 1. Choose a module from the table of contents below.
-2. Use the appropriate command to get information on a specific topic within the module.
+2. Use the appropriate command in Each Module's Channel to get information on a specific topic within the module.
 3. Ask any specific question you have related to the topic.
 
 **Table of Contents:**

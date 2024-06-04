@@ -7,21 +7,12 @@ import {
 } from 'discord.js';
 import { readdirSync } from 'fs';
 import { join } from 'path';
-import config from '../config.json';
 
-const ALLOWED_CHANNEL_ID = config.CHANNEL_ID;
 
 
 module.exports = {
   name: 'interactionCreate',
   async execute(interaction: Interaction, client: Client) {
-    if (interaction.channelId !== ALLOWED_CHANNEL_ID) {
-      await (interaction as CommandInteraction).reply({
-        content: 'Can\'t use this command in this Channel!',
-        ephemeral: true
-      });
-      return;
-    }
 
     if (
       !interaction.isCommand() &&

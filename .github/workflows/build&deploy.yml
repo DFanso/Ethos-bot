@@ -29,7 +29,14 @@ jobs:
         {
         "TOKEN": "${{ secrets.TOKEN }}",
         "CLIENT_ID": "${{ secrets.CLIENT_ID }}",
-        "CHANNEL_ID": "${{ secrets.CHANNEL_ID }}",
+        "MODULE_1_CHANNEL_ID": "${{ secrets.MODULE_1_CHANNEL_ID }}",
+        "MODULE_2_CHANNEL_ID": "${{ secrets.MODULE_2_CHANNEL_ID }}",
+        "MODULE_3_CHANNEL_ID": "${{ secrets.MODULE_3_CHANNEL_ID }}",
+        "MODULE_4_CHANNEL_ID": "${{ secrets.MODULE_4_CHANNEL_ID }}",
+        "MODULE_5_CHANNEL_ID": "${{ secrets.MODULE_5_CHANNEL_ID }}",
+        "MODULE_6_CHANNEL_ID": "${{ secrets.MODULE_6_CHANNEL_ID }}",
+        "MODULE_7_CHANNEL_ID": "${{ secrets.MODULE_7_CHANNEL_ID }}",
+        "MODULE_8_CHANNEL_ID": "${{ secrets.MODULE_8_CHANNEL_ID }}",
         "OPENAI_API_KEY": "${{ secrets.OPENAI_API_KEY }}"
         }
         EOF

@@ -1,5 +1,8 @@
 import { CommandInteraction, SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import { generateOpenAIResponse } from '../services/openAi';
+import config from '../config.json';
+
+const MODULE_4_CHANNEL_ID = config.MODULE_4_CHANNEL_ID;
 
 const module4Info: { [key: string]: string } = {
   "types of motivated sellers to target": `Types of Motivated Sellers to Target:
@@ -81,6 +84,13 @@ module.exports = {
         .setDescription('Ask a specific question related to the topic')
         .setRequired(true)),
   async execute(interaction: CommandInteraction) {
+    if (interaction.channelId !== MODULE_4_CHANNEL_ID) {
+        await (interaction as CommandInteraction).reply({
+          content: `Can\'t use this command in this Channel!, Use this Channel: <#${MODULE_4_CHANNEL_ID}>`,
+          ephemeral: true
+        });
+        return;
+      }
     const topic = interaction.options.get('topic')?.value as string;
     const userQuestion = interaction.options.get('question')?.value as string | undefined;
 
