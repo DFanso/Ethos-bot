@@ -39,7 +39,7 @@ const module9Info: { [key: string]: string } = {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('module9')
-    .setDescription('Get information about Module 9: Comping properties')
+    .setDescription('Get information about Module 9: Estimating the cost')
     .addStringOption(option => 
       option.setName('topic')
         .setDescription('Topic to get information about')
