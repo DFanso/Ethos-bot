@@ -37,6 +37,7 @@ jobs:
         "MODULE_6_CHANNEL_ID": "${{ secrets.MODULE_6_CHANNEL_ID }}",
         "MODULE_7_CHANNEL_ID": "${{ secrets.MODULE_7_CHANNEL_ID }}",
         "MODULE_8_CHANNEL_ID": "${{ secrets.MODULE_8_CHANNEL_ID }}",
+        "MODULE_9_CHANNEL_ID": "${{ secrets.MODULE_9_CHANNEL_ID }}",
         "OPENAI_API_KEY": "${{ secrets.OPENAI_API_KEY }}"
         }
         EOF
