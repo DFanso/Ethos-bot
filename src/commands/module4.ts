@@ -94,7 +94,7 @@ module.exports = {
     const topic = interaction.options.get('topic')?.value as string;
     const userQuestion = interaction.options.get('question')?.value as string | undefined;
 
-    await interaction.deferReply(); 
+    await interaction.deferReply({ephemeral: true}); 
 
     let response = module4Info[topic.toLowerCase()] || 'Topic not found.';
 
